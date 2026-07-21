@@ -1,519 +1,1197 @@
-
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=35&duration=2500&pause=500&color=3498DB&center=true&vCenter=true&width=600&lines=Browser+Data+Logger;Comprehensive+Telemetry+Tool;Privacy+%26+Security+Research" alt="Typing SVG" />
-</p>
-
-<p align="center">
+  <img
+    src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=32&duration=2500&pause=500&color=3498DB&center=true&vCenter=true&width=700&lines=Browser+Data+Logger;Browser+Telemetry+Research;Web+API+Capability+Research"
+    alt="Browser Data Logger"
+  />
+</p><h1 align="center">Browser Data Logger</h1><p align="center">
+  A modular JavaScript browser telemetry and Web API capability-research project.
+</p><p align="center">
   <a href="https://github.com/Ali-hey-0/Browser-Data-Logger">
-    <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" alt="Status">
+    <img src="https://img.shields.io/badge/Status-Research%20Project-blue?style=for-the-badge" alt="Project Status">
   </a>
   <a href="https://github.com/Ali-hey-0/Browser-Data-Logger/stargazers">
-    <img src="https://img.shields.io/github/stars/Ali-hey-0/Browser-Data-Logger?style=for-the-badge&color=yellow" alt="Stars">
+    <img src="https://img.shields.io/github/stars/Ali-hey-0/Browser-Data-Logger?style=for-the-badge&color=yellow" alt="GitHub Stars">
   </a>
   <a href="https://github.com/Ali-hey-0/Browser-Data-Logger/network/members">
-    <img src="https://img.shields.io/github/forks/Ali-hey-0/Browser-Data-Logger?style=for-the-badge&color=blue" alt="Forks">
+    <img src="https://img.shields.io/github/forks/Ali-hey-0/Browser-Data-Logger?style=for-the-badge&color=blue" alt="GitHub Forks">
   </a>
   <a href="https://github.com/Ali-hey-0/Browser-Data-Logger/issues">
-    <img src="https://img.shields.io/github/issues/Ali-hey-0/Browser-Data-Logger?style=for-the-badge&color=red" alt="Issues">
+    <img src="https://img.shields.io/github/issues/Ali-hey-0/Browser-Data-Logger?style=for-the-badge&color=red" alt="Open Issues">
   </a>
   <a href="https://github.com/Ali-hey-0/Browser-Data-Logger/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/Ali-hey-0/Browser-Data-Logger?style=for-the-badge&color=green" alt="License">
   </a>
-</p>
+</p><p align="center">
+  <a href="#-overview">Overview</a> •
+  <a href="#-capabilities">Capabilities</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-security">Security</a>
+</p>---
 
-<br/>
+«[!WARNING]
 
-> **A single JavaScript payload that captures 40+ data points from a visitor's browser – from battery level to camera snapshot – and delivers them in real time to your Telegram bot and WebSocket server.**  
-> **For authorised security research, device fingerprinting studies, and educational use only.**
+Authorised Use Only
 
-<br/>
+This project can interact with highly sensitive browser capabilities, including geolocation, camera, microphone, clipboard, screen capture, browser storage, device information, and interaction events.
 
----
+Use it only on systems, browsers, and devices that you own or are explicitly authorised to test.
 
-## 📑 Table of Contents
-
-- [🔭 Overview](#-overview)
-- [✨ Features (Complete List)](#-features-complete-list)
-- [🧠 Architecture & Data Flow](#-architecture--data-flow)
-- [⚡ Quick Start](#-quick-start)
-- [⚙️ Configuration](#️-configuration)
-- [🤖 Telegram Bot Setup](#-telegram-bot-setup)
-- [📡 WebSocket Server Setup](#-websocket-server-setup)
-- [📊 Example Output](#-example-output)
-- [📖 Detailed Data Categories](#-detailed-data-categories)
-- [🔒 Security & Privacy](#-security--privacy)
-- [🛠️ Troubleshooting](#️-troubleshooting)
-- [❓ FAQ](#-faq)
-- [🗺️ Roadmap](#️-roadmap)
-- [🤝 Contributing](#-contributing)
-- [📜 License](#-license)
-- [📬 Contact](#-contact)
-- [🙏 Acknowledgements](#-acknowledgements)
+Do not deploy it against unsuspecting users. Browser permission prompts do not replace informed consent, legal authorisation, or responsible data handling.»
 
 ---
 
-## 🔭 Overview
+«[!CAUTION]
 
-**Browser Data Logger** is a pure JavaScript (ES6+) script that, once loaded in a browser, silently collects a **comprehensive snapshot** of the device, network, user interactions, and environmental sensors. All data is packaged into a human‑readable report and transmitted simultaneously over two channels:
+Credential Security
 
-- **Telegram Bot** – receives the full text report plus optional camera and screen captures.
-- **WebSocket** – streams individual data points as JSON for integration with custom dashboards, SIEMs, or analysis pipelines.
+Never commit a real Telegram bot token, API key, private key, password, or production credential to this repository.
 
-The script is modular, error‑resilient, and automatically re‑runs every ~2 minutes to provide continuous updates on battery, network conditions, clipboard content, and more.
-
-> ⚠️ **IMPORTANT**  
-> This tool is **strictly for ethical use** – only on devices you own or have written permission to test. Unauthorised deployment may violate laws like GDPR, CCPA, CFAA, and others.
+If a credential has ever been exposed in source code or Git history, revoke or rotate it immediately.»
 
 ---
 
-## ✨ Features (Complete List)
+📑 Table of Contents
 
-Every aspect of the browser environment is fingerprinted. Below is the exhaustive set of data points captured:
-
-| Category | Data Collected |
-|----------|----------------|
-| **🔐 HTTPS Detection** | Protocol (HTTP/HTTPS), security warning if insecure |
-| **🔑 Permissions** | Camera, geolocation, microphone, notifications, MIDI, USB |
-| **🌐 Network** | Public IP (via `ipify`), ISP, ASN, city, region, country, postal code, timezone, approximate coordinates (via `ipapi.co`) |
-| **📍 Geolocation** | High‑accuracy GPS (lat, lon, altitude, heading, speed, accuracy), reverse‑geocoded street address via Nominatim |
-| **🖥️ Device Info** | User‑agent, platform, language, screen resolution, color depth, pixel ratio, timezone, CPU cores, device memory, touch support, webdriver flag, referrer, full URL, window size, orientation, JS heap memory, page load timing |
-| **🖌️ Fingerprinting** | Canvas fingerprint, WebGL renderer/vendor/extensions, WebAudio fingerprint, font enumeration, WebAssembly support |
-| **🎮 GPU** | WebGPU adapter info (device, vendor, architecture) |
-| **🕵️ Cache Probing** | Visited website detection (Facebook, X, LinkedIn, Instagram, GitHub) via timing attacks |
-| **🔋 Battery** | Level, charging status, charging/discharging time (live updates on change) |
-| **📶 Network Connection** | Effective type (4G, WiFi…), downlink speed, RTT, data‑saver mode (live updates) |
-| **📳 Sensors** | Accelerometer (X, Y, Z), gyroscope (alpha, beta, gamma), ambient light (lux) |
-| **📋 Clipboard** | Current clipboard content (if secure context), updates on paste event |
-| **💾 Storage** | Cookies, `localStorage`, `sessionStorage`, IndexedDB availability |
-| **🖧 WebRTC** | Local IP addresses leaked via STUN/TURN |
-| **🎤 Microphone** | Audio frequency spectrum metadata (via AnalyserNode) |
-| **📸 Camera** | Snapshot photo (jpeg) from front/back camera (with fallback logic) |
-| **🖥️ Screen Capture** | Screenshot of user’s entire screen (jpeg) after user consent prompt |
-| **⌨️ Interactions** | Keystrokes (key + timestamp), mouse moves (X, Y + timestamp), clicks |
-| **🎮 Gamepad** | Connected gamepad IDs, button/axes count, live connect events |
-| **🎹 MIDI** | Input/output device names |
-| **🔌 USB** | Connected USB devices (vendor/product ID, name), live connect events |
-| **🥽 VR/AR** | WebXR session support (`immersive-vr`) |
-| **📜 History** | Browsing history length, last history state |
-| **🧩 Extensions** | Detection of uBlock Origin, AdBlock, Privacy Badger, NoScript via chrome‑extension:// probing |
-| **⚠️ Errors** | Detailed error logs for every failed module |
-
-All captured photos are sent as actual images to Telegram. The textual report is intelligently truncated to fit Telegram’s 4096‑character limit.
+- "🔭 Overview" (#-overview)
+- "🎯 Project Goals" (#-project-goals)
+- "✨ Capabilities" (#-capabilities)
+- "🧩 Capability Matrix" (#-capability-matrix)
+- "🧠 Architecture" (#-architecture)
+- "⚡ Quick Start" (#-quick-start)
+- "⚙️ Configuration" (#️-configuration)
+- "📡 Output Channels" (#-output-channels)
+- "📊 Data Model" (#-data-model)
+- "📖 Collector Reference" (#-collector-reference)
+- "🔒 Security" (#-security)
+- "⚠️ Limitations" (#️-limitations)
+- "🛠️ Troubleshooting" (#️-troubleshooting)
+- "❓ FAQ" (#-faq)
+- "🗺️ Roadmap" (#️-roadmap)
+- "🤝 Contributing" (#-contributing)
+- "📜 License" (#-license)
+- "📬 Contact" (#-contact)
 
 ---
 
-## 🧠 Architecture & Data Flow
+🔭 Overview
 
-```mermaid
-graph TD
-    A[Browser Loads Script] --> B[WebSocket Init]
-    B --> C[captureAndSend]
-    C --> D{Parallel Data Collection}
-    D --> E[Permissions]
-    D --> F[IP & Location]
-    D --> G[Device Info]
+Browser Data Logger is a browser-side JavaScript research project that explores the information and capabilities exposed by modern Web APIs.
+
+The project is structured around independent collectors that attempt to gather browser, device, network, permission, sensor, storage, and interaction-related telemetry.
+
+Collected data can be:
+
+- Aggregated into a human-readable report.
+- Sent to a configured Telegram bot.
+- Streamed as JSON over WebSocket.
+- Used for browser capability research and controlled security experiments.
+
+The project is particularly useful for investigating the practical boundary between:
+
+Browser API
+     ↓
+Browser Support
+     ↓
+Permission State
+     ↓
+Available Data
+     ↓
+Reliability of the Result
+
+A capability being present in the code does not guarantee that:
+
+- The browser implements the API.
+- The API is available on the current platform.
+- The user grants permission.
+- The returned information is accurate.
+- The result is stable or unique.
+
+---
+
+🎯 Project Goals
+
+1. Web API Capability Research
+
+Explore which browser APIs are available across different browsers, devices, operating systems, and security contexts.
+
+2. Modular Telemetry Collection
+
+Keep data collectors conceptually independent so individual capabilities can be studied, modified, or disabled.
+
+3. Fault-Tolerant Collection
+
+A failure in one collector should ideally not prevent unrelated collectors from completing.
+
+4. Browser Fingerprinting Research
+
+Study the types of rendering, hardware, runtime, and environment signals exposed by browsers.
+
+5. Real-Time Telemetry
+
+Provide optional output through a WebSocket connection for custom dashboards and analysis pipelines.
+
+---
+
+✨ Capabilities
+
+The current implementation contains collectors for the following areas:
+
+Category| Capability
+🔐 Security Context| HTTPS detection
+🔑 Permissions| Camera, geolocation, microphone, notifications, MIDI, USB
+🌐 Network| Public IP and IP-derived metadata
+📍 Geolocation| Browser geolocation and reverse geocoding
+🖥️ Device| User agent, platform, language, screen, timezone, hardware hints
+🖌️ Fingerprinting| Canvas, WebGL, Web Audio, fonts, WebAssembly
+🎮 Graphics| WebGPU adapter metadata
+🕵️ Experimental Probing| Resource timing/cache heuristics
+🔋 Battery| Battery level and charging state
+📶 Network Information| Connection type, downlink, RTT, save-data
+📳 Sensors| Motion, orientation, ambient light where supported
+📋 Clipboard| Clipboard text access where permitted
+💾 Storage| Cookies, localStorage, sessionStorage, IndexedDB availability
+🖧 WebRTC| ICE candidate/network information
+🎤 Microphone| Audio analyser metadata after permission
+📸 Camera| Camera enumeration and still-image capture
+🖥️ Screen Capture| User-approved display capture
+⌨️ Interaction| Keyboard, mouse, and click events
+🎮 Gamepad| Connected gamepad information
+🎹 MIDI| MIDI input/output devices
+🔌 USB| Previously authorised USB devices
+🥽 WebXR| Immersive VR support
+📜 History| Limited history-state information
+🧩 Extension Probing| Experimental browser-extension signals
+⚠️ Diagnostics| Per-module error reporting
+
+---
+
+🧩 Capability Matrix
+
+Capability| Permission Required| Secure Context| Browser / Platform Dependent
+Public IP lookup| No| No| Yes
+IP metadata| No| No| Yes
+Geolocation| Yes| Usually| Yes
+Camera| Yes| Usually| Yes
+Microphone| Yes| Usually| Yes
+Screen Capture| Yes + user selection| Yes| Yes
+Clipboard Read| Often| Yes| Highly
+Device Motion| Sometimes| Often| Highly
+Device Orientation| Sometimes| Often| Highly
+Ambient Light| Sometimes| Usually| Highly
+WebGPU| No explicit permission in most cases| Usually| Highly
+Battery API| No| Browser-dependent| Highly
+WebRTC| Browser-controlled| Usually| Yes
+Gamepad| Device-dependent| No| Yes
+Web MIDI| Browser-dependent| Browser-dependent| Limited
+WebUSB| User interaction + permission| Yes| Limited
+WebXR| Device/browser-dependent| Usually| Limited
+Local Storage| No| No| Same-origin restricted
+
+«Browser APIs evolve continuously. The actual result depends on browser engine, version, operating system, privacy settings, extensions, enterprise policy, and user permissions.»
+
+---
+
+🧠 Architecture
+
+flowchart TD
+    A[Browser Loads java.js] --> B[Initialise Runtime]
+    B --> C[Create WebSocket]
+    C --> D[Collection Cycle]
+
+    D --> E[Permission Collector]
+    D --> F[Network & IP]
+    D --> G[Device Information]
     D --> H[Fingerprinting]
     D --> I[WebGPU]
-    D --> J[Cache Probing]
-    D --> K[Geolocation]
-    D --> L[Battery]
-    D --> M[Network]
-    D --> N[Sensors]
-    D --> O[Clipboard]
-    D --> P[Storage]
-    D --> Q[WebRTC]
-    D --> R[Interactions]
-    D --> S[Microphone]
-    D --> T[Screen Capture]
-    D --> U[Camera]
-    D --> V[Gamepad]
-    D --> W[MIDI]
-    D --> X[USB]
-    D --> Y[VR/AR]
-    D --> Z[History]
-    D --> AA[Extensions]
-    
-    subgraph Transmission
-        C --> AB[Format Report]
-        AB --> AC[Send to Telegram with Retry]
-        AC --> AD[Text Message]
-        AC --> AE[Photos]
-        C --> AF[WebSocket.send JSON]
-    end
-    
-    C --> AG[Set Interval 2min + Jitter]
-    AG --> C
-```
+    D --> J[Geolocation]
+    D --> K[Battery]
+    D --> L[Network Information]
+    D --> M[Sensors]
+    D --> N[Clipboard]
+    D --> O[Storage]
+    D --> P[WebRTC]
+    D --> Q[Interaction Events]
+    D --> R[Microphone]
+    D --> S[Screen Capture]
+    D --> T[Camera]
+    D --> U[Gamepad]
+    D --> V[MIDI]
+    D --> W[USB]
+    D --> X[WebXR]
+    D --> Y[History]
+    D --> Z[Extension Probes]
 
-Key Design Decisions:
+    E --> AA[Collected Data Object]
+    F --> AA
+    G --> AA
+    H --> AA
+    I --> AA
+    J --> AA
+    K --> AA
+    L --> AA
+    M --> AA
+    N --> AA
+    O --> AA
+    P --> AA
+    Q --> AA
+    R --> AA
+    S --> AA
+    T --> AA
+    U --> AA
+    V --> AA
+    W --> AA
+    X --> AA
+    Y --> AA
+    Z --> AA
 
-· Parallel execution: All data collectors run simultaneously via Promise.all to minimise load time.
-· Caching: Static fingerprints (device info, canvas/webgl) are cached in cachedData to avoid redundant heavy operations.
-· Retry logic: Telegram messages and photos use exponential backoff (1s, 2s, 4s, 8s, 16s) for up to 5 attempts.
-· Graceful degradation: If a module fails, its error is logged and included in the final report – nothing breaks the whole chain.
-· Re‑collection loop: A jittered interval (120000ms + random(0-1000)ms) re‑runs the capture, allowing live monitoring of mutable states.
+    AA --> AB[Format Report]
+    AB --> AC[Telegram Text]
+    AA --> AD[Telegram Photos]
+    AA --> AE[WebSocket JSON]
+
+    D --> AF[Periodic Recollection]
+    AF --> D
+
+Runtime flow
+
+At a high level, the intended runtime flow is:
+
+Initialisation
+     ↓
+WebSocket connection
+     ↓
+Collection cycle
+     ↓
+Independent collectors
+     ↓
+Aggregate collectedData
+     ↓
+Format human-readable report
+     ↓
+Telegram delivery
+     ↓
+Optional media delivery
+     ↓
+WebSocket JSON delivery
+     ↓
+Periodic recollection
 
 ---
 
 ⚡ Quick Start
 
 1. Clone the repository
-   ```bash
-   git clone https://github.com/Ali-hey-0/Browser-Data-Logger.git
-   cd Browser-Data-Logger
-   ```
-2. Open index.html (or create your own HTML file) and insert the script. Set your configuration constants (see Configuration).
-3. Serve over HTTPS
-      For local testing, generate a self‑signed certificate or use a tool that provides SSL automatically:
-   ```bash
-   npx serve . --ssl
-   # or
-   python3 -m http.server 8000  # (only if you don't need secure APIs)
-   ```
-   Camera, microphone, screen capture, and geolocation require a secure context (HTTPS or localhost). For development, you can also launch Chrome with --unsafely-treat-insecure-origin-as-secure="http://your-domain".
-4. Open the page in your browser. The script runs automatically. Check your Telegram bot for the report.
+
+git clone https://github.com/Ali-hey-0/Browser-Data-Logger.git
+cd Browser-Data-Logger
+
+2. Include the script
+
+If "java.js" is used as an external script:
+
+<script src="./java.js"></script>
+
+If the code is intended to be embedded directly into HTML, place it inside a "<script>" element.
+
+«Do not include a literal "</script>" closing tag inside an external ".js" file.»
+
+3. Configure the runtime
+
+At minimum, configure:
+
+const BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN';
+const CHAT_ID = 'YOUR_TELEGRAM_CHAT_ID';
+const WS_URL = 'wss://your-websocket-server.example';
+const DEBUG = false;
+
+4. Serve the application
+
+For basic local development:
+
+python3 -m http.server 8000
+
+Then open the application through:
+
+http://localhost:8000
+
+Many browser APIs require HTTPS or a secure context. "localhost" is treated specially by browsers, but API behaviour still varies.
+
+5. Enable debug logging when necessary
+
+const DEBUG = true;
+
+Then inspect the browser console for:
+
+- Collector errors.
+- WebSocket errors.
+- Permission failures.
+- Telegram delivery failures.
+- Browser API compatibility issues.
 
 ---
 
 ⚙️ Configuration
 
-At the top of the script (java.js or inline <script>), replace the placeholders with your own values:
+The runtime configuration is conceptually:
 
-```javascript
-const BOT_TOKEN = '7944060864:AAGvE3ngz4nQYN9ZglGN1-5jHgnok0kyRUY';  // ← Replace with your bot token
-const CHAT_ID   = 'YOUR_TELEGRAM_CHAT_ID';                       // ← Replace with your chat ID
-const DEBUG     = false;                                         // Set true for console logs
-const WS_URL    = 'wss://your-websocket-server.com';             // WebSocket endpoint
-```
+const BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN';
+const CHAT_ID = 'YOUR_TELEGRAM_CHAT_ID';
+const DEBUG = false;
+const WS_URL = 'wss://your-websocket-server.example';
 
-· BOT_TOKEN – obtained from @BotFather on Telegram.
-· CHAT_ID – your personal numeric ID or a group chat ID (see Telegram Bot Setup).
-· WS_URL – a WebSocket server that will receive JSON data in real time. Leave as an empty string if not using WebSockets (the script will fall back gracefully).
-· DEBUG – enable to see verbose logs in the browser console (useful for debugging permissions or network errors).
+"BOT_TOKEN"
 
----
+Telegram Bot API authentication token.
 
-🤖 Telegram Bot Setup
+This is a secret and should never be committed to a public repository.
 
-1. Create a bot
-      In Telegram, search for @BotFather, send /newbot, choose a name and username. You will receive a token like 123456:ABCdef....
-2. Obtain your chat ID
-   · Send any message (e.g., “/start”) to your bot.
-   · Visit this URL in your browser:
-          https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
-   · Look for the "chat":{"id":123456789} field. That number is your CHAT_ID.
-3. Configure the script with the token and chat ID.
-4. Test by loading the page. Your bot should receive:
-   · A multi‑line text message containing all collected information.
-   · Separate photo messages (camera capture + screen capture), if the browser allowed them.
+"CHAT_ID"
 
----
+The destination Telegram chat identifier.
 
-📡 WebSocket Server Setup
+"DEBUG"
 
-To view live JSON streams, you can run any WebSocket echo or relay server. Below are two quick options.
+Controls diagnostic logging.
 
-Option 1: Node.js with ws (recommended)
+When enabled, the project logs errors and warnings to the browser console.
 
-```bash
-npm init -y
-npm install ws
-```
+"WS_URL"
 
-Create server.js:
+The WebSocket endpoint used for:
 
-```javascript
-const WebSocket = require('ws');
-const wss = new WebSocket.Server({ port: 8080 });
+- Initial connection.
+- Real-time event delivery.
+- Final aggregated JSON delivery.
 
-wss.on('connection', ws => {
-  console.log('Client connected');
-  ws.on('message', data => console.log('Received:', data.toString()));
-});
-
-console.log('WebSocket server running on ws://localhost:8080');
-```
-
-Run with node server.js. Set WS_URL = 'ws://localhost:8080' (or wss:// in production with a reverse proxy).
-
-Option 2: wscat for quick testing
-
-```bash
-npm install -g wscat
-wscat -l 8080
-```
-
-It will print every message to the console.
-
-The script sends JSON objects like:
-
-```json
-{"ipDetails":{"city":"Berlin","country":"Germany",...}}
-{"geolocation":{"latitude":52.52,"longitude":13.405,...},"address":"Unter den Linden..."}
-{"interaction":"Key:a:123456"}
-{"camera":{"photo":"data:image/jpeg;base64,..."}}
-```
+Use "wss://" for encrypted WebSocket transport in production.
 
 ---
 
-📊 Example Output
+📡 Output Channels
 
-Telegram Message Preview
-(truncated for brevity; actual output is ~3000–4000 characters)
+The project currently uses two output channels.
 
-```
-Device Info (2026-07-21T14:22:10.123Z):
-HTTPS: Yes
-Permissions: {"camera":"granted","geolocation":"prompt",...}
-IP: 203.0.113.42
-IP Location: Berlin, Berlin, Germany
-ISP: Example Internet GmbH
-IP Coords: 52.520008, 13.404954
-Postal: 10178
-Timezone: Europe/Berlin
-ASN: AS12345
-userAgent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ...
-screenResolution: 1920x1080
-timeZone: Europe/Berlin
-...
-Geo: Lat:52.5200, Lon:13.4050, Acc:12m, Alt:N/A, Head:N/A, Speed:N/A
-Address: 1, Unter den Linden, Mitte, Berlin, 10117, Germany
-AddrDetails: Unter den Linden, Berlin, Berlin, Deutschland, 10117
-Battery: 89.00% (Charging), CT:Infinity, DT:Infinity
-Network: 4g, 10Mbps, RTT:50ms, SaveData:No
-Camera: Yes, Count:2, Labels:HD Webcam, Back Camera
-Photo: Captured
-ScreenCapture: Captured
-...
-```
+Telegram
 
-Photos are attached as actual images, named photo_1626854220123.jpg and screen_1626854220123.jpg.
+Telegram is used for human-readable reporting.
+
+The collection cycle can send:
+
+1. A formatted text report.
+2. A camera image, if captured.
+3. A screen-capture image, if captured.
+
+The formatted report is truncated to Telegram's message-size limit.
+
+WebSocket
+
+WebSocket is used for structured real-time events.
+
+Examples of event categories include:
+
+{
+  "ipDetails": {
+    "city": "Example City",
+    "country": "Example Country"
+  }
+}
+
+{
+  "batteryUpdate": {
+    "charging": true,
+    "timestamp": "2026-07-21T14:22:10.123Z"
+  }
+}
+
+{
+  "networkUpdate": {
+    "type": "4g",
+    "downlink": 10,
+    "rtt": 50
+  }
+}
+
+{
+  "interaction": "Click:320,240:12345.67"
+}
+
+The final collection object is also sent as a JSON payload at the end of the collection cycle.
 
 ---
 
-📖 Detailed Data Categories
+📊 Data Model
 
-🔐 HTTPS Detection
+A collection cycle begins with:
 
-· isSecure: boolean indicating if the page was loaded over HTTPS.
-· securityWarning: message listing the APIs that are blocked in HTTP (camera, geolocation, etc.).
+{
+  timestamp: "2026-07-21T14:22:10.123Z"
+}
+
+Depending on browser support and permission state, additional fields may include:
+
+isSecure
+securityWarning
+permissions
+ipAddress
+ipDetails
+deviceInfo
+fingerprint
+webgpu
+visitedSites
+geolocation
+address
+addressDetails
+geolocationFallback
+battery
+network
+accelerometer
+gyroscope
+ambientLight
+clipboard
+storage
+localIPs
+interactions
+audioMetadata
+screenCapture
+camera
+gamepads
+midi
+usb
+xr
+history
+extensions
+
+Errors are represented through fields such as:
+
+permissionsError
+ipError
+deviceInfoError
+fingerprintError
+webgpuError
+cacheError
+geoError
+batteryError
+networkError
+sensorError
+clipboardError
+storageError
+webRtcError
+interactionError
+audioError
+screenError
+gamepadError
+midiError
+usbError
+xrError
+historyError
+extensionError
+cameraError
+
+---
+
+📖 Collector Reference
+
+🔐 HTTPS / Secure Context
+
+The collector checks:
+
+window.location.protocol === 'https:'
+
+If the page is not served over HTTPS, the project records a security warning.
+
+Many sensitive browser APIs require a secure context.
+
+---
 
 🔑 Permissions
 
-Queries the Permission API for: camera, geolocation, microphone, notifications, midi, usb. States can be granted, denied, or prompt.
+The project attempts to query permission states for:
 
-🌐 Network & IP
+- "camera"
+- "geolocation"
+- "microphone"
+- "notifications"
+- "midi"
+- "usb"
 
-· Public IP via https://api.ipify.org?format=json (no‑cache to prevent caching).
-· IP Enrichment via https://ipapi.co/json/ → city, region, country, ISP, latitude, longitude, postal, timezone, ASN.
-    Cached in memory; if the next collection fails, the cached version is used as fallback.
+Possible states generally include:
 
-📍 Geolocation
+granted
+denied
+prompt
 
-· Uses navigator.geolocation.getCurrentPosition with enableHighAccuracy: true, 30s timeout.
-· Falls back to IP‑based coordinates if GPS fails or is denied.
-· Reverse geocoding via Nominatim (nominatim.openstreetmap.org) to get a human‑readable address and detailed components (road, city, state, country, postal).
-· Sent separately over WebSocket and included in the Telegram report.
-
-🖥️ Device Info
-
-A massive static object containing:
-
-· userAgent, platform, language, languages (list)
-· screenResolution, colorDepth, pixelRatio
-· timeZone (from Intl), cpuCores (navigator.hardwareConcurrency)
-· deviceMemory (GB), touchSupport (boolean), webdriver flag
-· referrer, url, windowSize, orientation
-· memory (used JS heap size in MB) – from performance.memory
-· performanceTiming – DOM complete and load event duration
-
-Cached indefinitely because they don’t change during a session.
-
-🖌️ Fingerprinting
-
-· Canvas: draws text and random noise to produce a hashable dataURL.
-· WebGL: renderer string, vendor, version, and list of supported extensions.
-· Audio: sample rate and max channel count via AudioContext.
-· Fonts: tests a list of 13 common fonts by measuring the width of a hidden <span>.
-· WebAssembly: attempts to compile a minimal WASM module to detect support.
-
-All components are cached after the first run.
-
-🎮 WebGPU
-
-If available, queries navigator.gpu.requestAdapter() and extracts device, vendor, and architecture.
-
-🕵️ Cache Probing
-
-Times how long it takes to load favicons from popular sites. A load time under 50ms suggests the resource was cached, implying the user has visited that site. Tested sites: facebook.com, x.com, linkedin.com, instagram.com, github.com.
-
-🔋 Battery
-
-Uses the Battery Status API (navigator.getBattery). Reports level (0‑100%), charging state, charging time, discharging time. Additionally, registers an onchargingchange listener that sends real‑time updates to WebSocket.
-
-📶 Network Connection
-
-Uses navigator.connection (if available). Reports effectiveType, downlink, rtt, and saveData. Listens for changes and pushes updates.
-
-📳 Sensors
-
-· Accelerometer (DeviceMotionEvent) – X, Y, Z acceleration.
-· Gyroscope (DeviceOrientationEvent) – alpha, beta, gamma.
-· Ambient Light (AmbientLightSensor API) – illuminance in lux.
-
-All are read once, then discarded.
-
-📋 Clipboard
-
-Reads the current clipboard content using navigator.clipboard.readText() only if in a secure context. Also adds a one‑time paste listener to capture future clipboard changes.
-
-💾 Storage
-
-Dumps cookies, localStorage, sessionStorage (serialised to JSON), and checks IndexedDB availability.
-
-🖧 WebRTC Local IPs
-
-Creates a temporary RTCPeerConnection with STUN and TURN servers. Listens for ICE candidates and extracts IPv4 addresses, revealing local network IPs. Sent individually over WebSocket.
-
-🎤 Microphone
-
-Requests audio access via getUserMedia. Creates an AudioContext and AnalyserNode, then extracts a snapshot of the frequency spectrum (Float32Array) and reports bin count, max and min values.
-
-📸 Camera
-
-1. Enumerates devices to detect video inputs (count, labels).
-2. Tries to open the camera in this order: user‑facing, environment‑facing, any.
-3. Captures a single frame to a canvas, converts to JPEG (quality 0.3), and sends as a photo to Telegram.
-
-🖥️ Screen Capture
-
-Prompts the user with the browser’s native screen‑sharing dialog. After selection, captures a frame, converts to JPEG, and sends as a photo.
-
-⌨️ Interactions
-
-· Keydown: logs key and timestamp (up to 50 entries).
-· Mousemove: logs coordinates and timestamp.
-· Click: logs coordinates and timestamp.
-
-All are sent as real‑time WebSocket messages and appended to the report.
-
-🎮 Gamepad, 🎹 MIDI, 🔌 USB, 🥽 VR/AR, 📜 History, 🧩 Extensions
-
-Each module probes its respective API and reports available devices or capabilities. For gamepad and USB, live connect events are forwarded.
-
-⚠️ Error Logging
-
-Every module is wrapped in try/catch. If an error occurs, the error name and message are preserved in the final report (e.g., cameraError: NotAllowedError: Permission denied).
+However, not every browser supports every permission name.
 
 ---
 
-🔒 Security & Privacy
+🌐 Public IP and IP Metadata
 
-· Data Minimization: The script collects everything it can, but you are responsible for ensuring you only capture what is legally and ethically permissible.
-· Transmission: All communication to Telegram and WebSocket is over HTTPS/WSS if you deploy with SSL. The script itself does not enforce encryption (depends on your hosting).
-· Sensitive Data: Camera/screen captures, keystrokes, clipboard content, and local IPs are highly sensitive. Implement appropriate access controls on the receiving end.
-· User Consent: The browser will prompt the user for camera, microphone, screen capture, and geolocation. The script does not bypass these prompts – it only captures data after the user explicitly allows it.
-· Caching: Some data (device info, fingerprint) is stored in memory for the page lifetime, but is never persisted to localStorage or sent to third‑party servers by this script itself.
-· Compliance: Be aware of regulations such as GDPR, CCPA, ePrivacy Directive, and others. This tool is for authorised testing only.
+The project performs two network requests:
+
+1. Public IP lookup.
+2. IP metadata enrichment.
+
+The resulting metadata may include:
+
+- IP address.
+- City.
+- Region.
+- Country.
+- ISP/organisation.
+- Approximate latitude.
+- Approximate longitude.
+- Postal code.
+- Timezone.
+- ASN.
+
+IP-derived geolocation is approximate and should not be confused with GPS-level positioning.
+
+---
+
+📍 Geolocation
+
+When the secure-context requirement is satisfied, the project requests high-accuracy browser geolocation.
+
+Potentially collected fields:
+
+latitude
+longitude
+accuracy
+altitude
+heading
+speed
+
+The coordinates may then be sent to a reverse-geocoding service to obtain:
+
+- Human-readable address.
+- Road.
+- City/town.
+- State.
+- Country.
+- Postal code.
+
+If browser geolocation fails and IP metadata is available, the project may use IP-derived coordinates as a fallback.
+
+---
+
+🖥️ Device Information
+
+The collector attempts to record:
+
+- User agent.
+- Platform.
+- Primary language.
+- Preferred languages.
+- Screen resolution.
+- Color depth.
+- Device pixel ratio.
+- Timezone.
+- Hardware concurrency.
+- Device memory hint.
+- Touch support.
+- WebDriver state.
+- Referrer.
+- Current URL.
+- Window dimensions.
+- Screen orientation.
+- JavaScript heap information where exposed.
+- Performance timing information where available.
+
+Some values are cached in memory for subsequent collection cycles.
+
+---
+
+🖌️ Fingerprinting Signals
+
+The fingerprint collector currently investigates several browser characteristics.
+
+Canvas
+
+The project creates a canvas and renders text containing a random value.
+
+The resulting canvas data URL is stored as a rendering signal.
+
+Because the rendered content includes randomness, this should not be treated as a stable deterministic fingerprint without additional processing.
+
+WebGL
+
+Potentially collected values include:
+
+- Renderer.
+- Vendor.
+- WebGL version.
+- Supported extensions.
+
+Web Audio
+
+The project records audio-context characteristics such as:
+
+- Sample rate.
+- Maximum channel count.
+
+Fonts
+
+A predefined list of fonts is tested.
+
+The current implementation uses a basic style-property heuristic, which should not be considered a reliable font-enumeration method.
+
+WebAssembly
+
+The project attempts to instantiate a minimal WebAssembly module to test support.
+
+---
+
+🎮 WebGPU
+
+If "navigator.gpu" is available, the project attempts to request an adapter and record:
+
+- Device.
+- Vendor.
+- Architecture.
+
+Support is highly browser- and platform-dependent.
+
+---
+
+🕵️ Experimental Resource Timing Probes
+
+The project attempts to measure loading times for selected external resources.
+
+The intention is to investigate whether timing may provide cache-related signals.
+
+This technique is experimental and unreliable.
+
+Possible sources of false results include:
+
+- Network latency.
+- CDN behaviour.
+- Browser caching policy.
+- Resource redirects.
+- Cache partitioning.
+- Privacy protections.
+- Query-string cache busting.
+
+The resulting value should not be treated as reliable browsing-history data.
+
+---
+
+🔋 Battery
+
+Where supported, the project reads:
+
+- Battery level.
+- Charging state.
+- Charging time.
+- Discharging time.
+
+It also registers a charging-state change handler for WebSocket updates.
+
+The Battery Status API is restricted or unavailable in many modern browsers.
+
+---
+
+📶 Network Information
+
+Where "navigator.connection" is available, the project records:
+
+- Effective connection type.
+- Estimated downlink.
+- Estimated RTT.
+- Save-data preference.
+
+A change handler can emit updated network information through WebSocket.
+
+These values are estimates rather than guaranteed physical network measurements.
+
+---
+
+📳 Sensors
+
+The project attempts to collect:
+
+Device Motion
+
+x
+y
+z
+
+Device Orientation
+
+alpha
+beta
+gamma
+
+Ambient Light
+
+Illuminance in lux where the API is available.
+
+Sensor availability varies significantly between browsers and devices.
+
+---
+
+📋 Clipboard
+
+In a secure context, the project attempts to read clipboard text through the Clipboard API.
+
+Clipboard access is heavily restricted by modern browser security policies.
+
+A failed read is expected in many environments.
+
+---
+
+💾 Browser Storage
+
+The project attempts to inspect:
+
+- "document.cookie"
+- "localStorage"
+- "sessionStorage"
+- IndexedDB availability
+
+The available data is restricted by:
+
+- Same-origin policy.
+- HttpOnly cookie protection.
+- Browser privacy settings.
+- Storage partitioning.
+
+---
+
+🖧 WebRTC Network Candidates
+
+The project creates an "RTCPeerConnection" and gathers ICE candidates.
+
+It attempts to extract IPv4 addresses from candidate strings.
+
+Modern browsers may:
+
+- Mask local addresses.
+- Expose mDNS hostnames.
+- Restrict candidate information.
+- Behave differently depending on privacy settings.
+
+Therefore, the result is browser-dependent.
+
+---
+
+⌨️ Interaction Events
+
+The project registers handlers for:
+
+- Keyboard events.
+- Mouse movement.
+- Click events.
+
+Events may be forwarded through WebSocket and appended to the collection object.
+
+Because keyboard and interaction telemetry can contain highly sensitive information, this collector should only be enabled for a clearly defined authorised research purpose.
+
+---
+
+🎤 Microphone Metadata
+
+After microphone permission is granted, the project:
+
+1. Requests an audio stream.
+2. Creates an "AudioContext".
+3. Connects the stream to an analyser.
+4. Reads frequency-domain data.
+5. Records summary metadata.
+6. Stops the media tracks.
+
+The current implementation records analyser statistics rather than intentionally storing a raw audio recording.
+
+---
+
+📸 Camera
+
+The camera collector:
+
+1. Enumerates video input devices.
+2. Records the number of detected cameras.
+3. Records available labels where exposed.
+4. Attempts multiple video constraints.
+5. Captures a single frame.
+6. Encodes the frame as JPEG.
+7. Sends the resulting image through configured output channels.
+
+Camera access requires browser permission.
+
+Device labels may be unavailable until permission has been granted.
+
+---
+
+🖥️ Screen Capture
+
+The project uses:
+
+navigator.mediaDevices.getDisplayMedia()
+
+The browser displays its native screen-sharing selection flow.
+
+The user must explicitly select and approve a capture source.
+
+The project does not bypass this browser-controlled permission process.
+
+---
+
+🎮 Gamepad
+
+The project reads connected gamepads and records:
+
+- Gamepad ID.
+- Button count.
+- Axis count.
+
+It also registers a connection event for newly connected devices.
+
+---
+
+🎹 MIDI
+
+Where Web MIDI is available, the project attempts to record:
+
+- MIDI input names.
+- MIDI output names.
+
+Support is browser-dependent.
+
+---
+
+🔌 USB
+
+Where WebUSB is available, the project reads previously authorised devices.
+
+Potential fields include:
+
+- Vendor ID.
+- Product ID.
+- Product name.
+
+The project also registers a USB connection handler.
+
+WebUSB access is strongly restricted by browser security policies.
+
+---
+
+🥽 WebXR
+
+The project checks whether the browser reports support for:
+
+immersive-vr
+
+This is a capability check, not proof that a compatible VR headset is currently connected.
+
+---
+
+📜 History State
+
+The project records:
+
+- "window.history.length"
+- "window.history.state"
+
+This does not provide unrestricted access to a user's browsing history.
+
+---
+
+🧩 Browser Extension Probing
+
+The project contains experimental probes intended to investigate whether selected extension-related resources produce timing signals.
+
+This technique is highly unreliable.
+
+Results can be affected by:
+
+- Browser engine.
+- Extension implementation.
+- Extension IDs.
+- Resource loading behaviour.
+- Privacy protections.
+
+It should not be considered a reliable extension-detection mechanism.
+
+---
+
+⚠️ Error Reporting
+
+Collectors use isolated error handling and record error context where possible.
+
+Example:
+
+cameraError:
+NotAllowedError: Permission denied
+
+This allows unsupported APIs and denied permissions to be distinguished from broader application failures.
+
+---
+
+🔒 Security
+
+Sensitive information
+
+This project may process:
+
+- Precise geolocation.
+- IP addresses.
+- Device fingerprints.
+- Browser metadata.
+- Camera images.
+- Screen captures.
+- Clipboard contents.
+- Keyboard events.
+- Mouse events.
+- Local network information.
+- Browser storage data.
+
+Treat all collected data as potentially sensitive.
+
+Telegram credential exposure
+
+The current architecture places the Telegram Bot API credential in browser-side JavaScript.
+
+This means that anyone who can inspect the page source or runtime can potentially obtain the token.
+
+For production systems, the preferred architecture is:
+
+Browser
+   ↓
+Your Backend
+   ↓
+Telegram Bot API
+
+rather than:
+
+Browser
+   ↓
+Telegram Bot API
+
+The same principle applies to other secrets.
+
+Transport security
+
+Use:
+
+HTTPS
+WSS
+
+for sensitive deployments.
+
+Encryption in transit does not compensate for:
+
+- Excessive data collection.
+- Weak access controls.
+- Exposed credentials.
+- Unauthorised deployment.
+
+Data minimisation
+
+Enable only the collectors required for the specific research objective.
+
+A technically possible data point is not automatically a necessary data point.
+
+---
+
+⚠️ Limitations
+
+This project is fundamentally constrained by the browser security model.
+
+Important limitations include:
+
+- Browser API support varies.
+- Permissions may be denied.
+- Some APIs require secure contexts.
+- Some APIs require user gestures.
+- Some APIs are deprecated or restricted.
+- Mobile browsers behave differently from desktop browsers.
+- Privacy-focused browsers may deliberately reduce information exposure.
+- Browser extensions can modify behaviour.
+- Fingerprints are probabilistic.
+- IP geolocation is approximate.
+- WebRTC information may be masked.
+- Resource timing heuristics are unreliable.
+- Camera and microphone access are permission-gated.
+- Screen capture requires explicit user selection.
+- Background execution is restricted on many platforms.
+
+The project should therefore be understood as a browser capability research tool, not as a guaranteed complete device-information extractor.
 
 ---
 
 🛠️ Troubleshooting
 
-Symptom Possible Cause Solution
-Telegram message not received Invalid BOT_TOKEN or CHAT_ID Double‑check values using the /getUpdates endpoint.
-Camera/screen capture fails Page loaded over HTTP, or user denied permission Serve over HTTPS; check browser console for specific error (e.g., NotAllowedError).
-Geolocation returns IP fallback User denied GPS permission, or device lacks GPS Ensure the page has a valid SSL certificate; test on a mobile device with GPS.
-WebSocket connection refused WS_URL is incorrect or server not running Verify the URL and that the server is listening on the correct port. Use wscat to test.
-“NotAllowedError” for clipboard Not in a secure context, or browser blocks silent clipboard reads Wrap the page in HTTPS; some browsers require a user gesture before reading clipboard.
-Report truncated (incomplete) Telegram message length exceeds 4096 characters The script already truncates the report; if you still miss data, increase priority of critical fields in formatCollectedData.
-Script not running at all Syntax error or missing WebSocket dependency Open browser DevTools (F12), look for red errors. Set DEBUG = true for more logs.
+Symptom| Likely Cause| Suggested Action
+Script does not start| Syntax error or invalid runtime configuration| Check DevTools Console
+WebSocket fails immediately| "WS_URL" missing, invalid, or server unavailable| Verify endpoint and server status
+Telegram messages fail| Invalid token or chat ID| Verify credentials and API response
+Camera fails| Permission denied or insecure context| Use a supported secure context
+Screen capture fails| User cancelled the browser dialog| Approve a capture source
+Geolocation fails| Permission denied or unavailable| Check browser permission state
+Clipboard fails| Browser security policy| Use a supported secure context and user gesture where required
+Sensors never return| No sensor event or unsupported API| Add timeout handling and verify device support
+Some fields are missing| Unsupported API or denied permission| Check the corresponding collector
+WebRTC returns no IP| Browser privacy protection| Expected in modern environments
+Extension detection is inaccurate| Experimental heuristic| Treat results as unreliable
+Report is truncated| Telegram message size limit| Reduce output or implement chunking
+Collection runs repeatedly but no data is sent| Collector execution or WebSocket state issue| Inspect the actual collection flow and connection state
 
 ---
 
 ❓ FAQ
 
-Q: Can I use this on my own website to track visitors?
-A: Only with explicit, informed consent. Unauthorised tracking is illegal in many jurisdictions. Use a proper analytics solution for legitimate purposes.
+Does this project access every browser capability?
 
-Q: Does the script work on mobile browsers?
-A: Yes, most features work on Chrome for Android and Safari for iOS (with limitations – e.g., no camera in background). iOS requires HTTPS for many APIs.
+No.
 
-Q: What if the user blocks JavaScript?
-A: The script won’t run at all. This is a client‑side library; you cannot bypass script blockers.
+It can only access APIs implemented by the browser and allowed by the browser security model.
 
-Q: Can I customise which data to collect?
-A: Absolutely. The code is modular; you can comment out entire async () => { ... } blocks in the Promise.all array.
+Can it bypass camera, microphone, or screen-capture permissions?
 
-Q: How can I store the WebSocket data long‑term?
-A: Implement a WebSocket server that forwards messages to a database (MongoDB, InfluxDB, Elasticsearch). The script sends JSON objects – you just need to persist them.
+No.
 
-Q: Why use both Telegram and WebSocket?
-A: Telegram gives you an immediate, human‑readable summary with photos. WebSocket provides real‑time, machine‑readable data for dashboards or SIEM integration.
+The browser controls these permission flows.
+
+Can it read a user's entire browsing history?
+
+No.
+
+The History API does not provide unrestricted browser-history access.
+
+Is the browser fingerprint unique?
+
+No.
+
+Fingerprinting produces probabilistic signals and can change over time.
+
+Does IP geolocation provide exact location?
+
+No.
+
+IP geolocation is approximate. Browser geolocation can be significantly more precise when permission is granted.
+
+Why use Telegram and WebSocket together?
+
+They serve different purposes:
+
+Channel| Primary Purpose
+Telegram| Human-readable reports and optional media
+WebSocket| Real-time machine-readable events
+
+Can individual collectors be disabled?
+
+The architecture is intended to support independent collector control.
+
+A future configuration layer should make this explicit rather than requiring manual code modification.
+
+Is this suitable for normal website analytics?
+
+Generally, no.
+
+For ordinary analytics, use a purpose-built analytics system that follows data-minimisation principles.
 
 ---
 
 🗺️ Roadmap
 
-· Live Dashboard – A simple HTML/JS dashboard that connects to the WebSocket server and displays real‑time metrics.
-· Elasticsearch/Kibana Integration – Ready‑to‑use Logstash config to push data to ELK stack.
-· Electron App – Package the collector as a standalone desktop app for authorised security audits.
-· Plugin System – Allow users to add custom data collectors without modifying the core script.
-· Enhanced Fingerprinting – Audio context fingerprinting with multiple oscillators, additional font detection.
-· Telegram Inline Buttons – Replace raw text with interactive buttons to request specific data on demand.
-· Improved Error Dashboard – A debug mode that sends structured error logs to a separate Telegram chat.
+Architecture
+
+- [ ] Fix and formalise collector execution model.
+- [ ] Introduce explicit collector registry.
+- [ ] Add collector enable/disable configuration.
+- [ ] Add execution timeouts.
+- [ ] Add WebSocket connection-state guards.
+- [ ] Separate collection from transport.
+- [ ] Move Telegram delivery behind a backend service.
+
+Reliability
+
+- [ ] Add browser compatibility detection.
+- [ ] Add structured error objects.
+- [ ] Add timeout handling for sensors and media APIs.
+- [ ] Add schema validation.
+- [ ] Add event versioning.
+- [ ] Improve retry and backoff handling.
+
+Privacy
+
+- [ ] Add privacy-preserving collection profiles.
+- [ ] Add explicit collector consent configuration.
+- [ ] Add data redaction.
+- [ ] Add retention controls.
+- [ ] Add sensitive-field filtering.
+
+Observability
+
+- [ ] Live WebSocket dashboard.
+- [ ] Collector success/failure metrics.
+- [ ] Browser compatibility matrix.
+- [ ] Structured event logging.
+- [ ] Elasticsearch/Kibana integration.
+
+Research
+
+- [ ] Cross-browser comparison suite.
+- [ ] Fingerprinting-resistance experiments.
+- [ ] Web API availability benchmark.
+- [ ] Permission-behaviour matrix.
+- [ ] Mobile-vs-desktop capability analysis.
 
 ---
 
 🤝 Contributing
 
-We welcome contributions that improve the tool’s robustness, add new data sources (ethically), or enhance documentation. Please follow these steps:
+Contributions are welcome in the areas of:
 
-1. Fork the repository.
-2. Create a feature branch: git checkout -b feature/amazing-feature.
-3. Commit your changes: git commit -m 'Add amazing feature'.
-4. Push to the branch: git push origin feature/amazing-feature.
-5. Open a Pull Request.
+- Browser compatibility.
+- Reliability.
+- Documentation.
+- Privacy controls.
+- Testing.
+- Error handling.
+- Research tooling.
 
-Guidelines:
+Development workflow
 
-· All new data collectors must handle errors gracefully and respect the user’s permission state.
-· Avoid breaking changes to the existing configuration interface unless absolutely necessary.
-· Ensure the script still runs without WebSocket or Telegram (fallback gracefully).
-· Write clear commit messages.
+git checkout -b feature/your-feature
+git add .
+git commit -m "Add your feature"
+git push origin feature/your-feature
 
-This project adheres to a Contributor Covenant code of conduct.
+Then open a Pull Request.
+
+Contribution guidelines
+
+- Do not commit credentials or secrets.
+- Keep collectors modular.
+- Handle unsupported APIs gracefully.
+- Document permission requirements.
+- Document browser compatibility.
+- Avoid unnecessary sensitive-data collection.
+- Add appropriate error handling.
+- Keep changes focused and reviewable.
 
 ---
 
 📜 License
 
-Distributed under the MIT License. See LICENSE for more information.
+Distributed under the MIT License.
+
+See ""LICENSE"" (LICENSE) for details.
 
 ---
 
 📬 Contact
 
-Ali‑Hey‑0
+Ali-Hey-0
 
-· GitHub: @Ali-hey-0
-· Project Link: https://github.com/Ali-hey-0/Browser-Data-Logger
+- GitHub: "@Ali-hey-0"
+- Project: "Browser-Data-Logger"
 
-For questions, suggestions, or responsible disclosure of security issues, please open an issue on the repository.
-
----
-
-🙏 Acknowledgements
-
-· ipify for public IP lookup.
-· ipapi.co for IP geolocation.
-· Nominatim (OpenStreetMap) for reverse geocoding.
-· Telegram Bot API for message delivery.
-· All open‑source contributors who build the incredible browser APIs that make this tool possible.
+For bugs, feature requests, or responsible security disclosures, please open an issue in the repository.
 
 ---
 
 <p align="center">
-  Made with ❤️ and JavaScript by <a href="https://github.com/Ali-hey-0">Ali‑Hey‑0</a>
+  Made with ❤️ and JavaScript by <strong>Ali-Hey-0</strong>
 </p>
-
